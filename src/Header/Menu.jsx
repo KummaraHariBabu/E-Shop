@@ -12,7 +12,7 @@ function Menu() {
         <div className="container">
             <NavLink to={`/`} className="navbar-brand">E-Shop</NavLink>
 
-            <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+            <button className="navbar-toggler border-0" style={{ outline: 'none',boxShadow: 'none' }}  data-bs-toggle="collapse" data-bs-target="#menu">
                 <span className='navbar-toggler-icon'></span>
             </button>
 
@@ -34,6 +34,7 @@ function Menu() {
                     </li>
                 </ul>
             </div>
+            
         </div>
     </div>
   )
