@@ -88,7 +88,7 @@ export default function ProductDetails() {
           <div className="col-md-6 mt-2 mb-2">
             <strong className="text-secondary text-info"> {product.category} </strong>
 
-            <h4 className="display-4 text-success"> {product.title} </h4>
+            <h4 className="display-4 text-success" > {product.title} </h4>
 
             <div className="mt-2 mb-2">
               <h5 className="text-success"> &#8377; {product.price} </h5>

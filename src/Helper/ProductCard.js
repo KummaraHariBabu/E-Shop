@@ -12,7 +12,7 @@ function ProductCard(props) {
             <div className="card">
                 <img src={props.thumbnail} alt="no image" className="card-img-top" width={300} height={250}/>
                 <div className="card-body">
-                    <h4 className="text-center text-success text-capitalize"> {props.title} </h4>
+                    <h4 className="text-center text-success text-capitalize" style={{width:"100%",overflow: "hidden",textOverflow: "ellipsis",whiteSpace: "nowrap"}}> {props.title} </h4>
                     <h6 className="text-warning"> &#8377; {props.price} </h6>
                     <details>
                         <summary className="text-primary">Product Description</summary>
