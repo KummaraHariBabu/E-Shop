@@ -20,6 +20,48 @@ export default function ProductDetails() {
     setProduct(res.data)
   }
 
+  const styles = {
+    fullStar: {
+      color: 'gold'
+    },
+    halfStarContainer: {
+      display: 'inline-block',
+      position: 'relative',
+      color: 'gold'
+    },
+    halfStarAfter: {
+      content: '"⭐"',
+      color: 'gold',
+      position: 'absolute',
+      left: 0,
+      width: '50%',
+      overflow: 'hidden',
+      transform: 'scaleX(-1)',
+      transformOrigin: 'left'
+    }
+  };
+  
+
+  //for stars 
+    const generateStars = ( rating ) => {
+      let stars = [];
+      let wholeStars = Math.floor(rating);
+      let halfStar = rating - wholeStars >= 0.5 ? true : false;
+    
+      for (let i = 1; i <= wholeStars; i++) {
+        stars.push(<span key={i} style={styles.fullStar}>⭐</span>);
+      }
+
+      if (halfStar) {
+        stars.push(
+          <span key="half" style={styles.halfStarContainer}>
+            ⭐
+            <span style={styles.halfStarAfter}></span>
+          </span>
+        );
+      }
+      return stars;
+    }
   const fetchProduct = useCallback(() => {
     getSingle()
   })
@@ -55,13 +97,13 @@ export default function ProductDetails() {
                   {/* carousel images */}
                   <div className="carousel-inner" style={{ height: "300px"}}>
                     <div className="carousel-item active">
-                      <img src={product.thumbnail} className="d-block w-100" alt="no image found" />
+                      <img src={product.thumbnail} className="d-block w-100" alt="no image found"  style={{height:"300px"}}/>
                     </div>
                     {
                       product.images && product.images.map((item,index) => {
                         return (
                           <div className="carousel-item" key={index}>
-                            <img src={item} className="d-block w-100" alt="no image found" />
+                            <img src={item} className="d-block w-100" alt="no image found"/>
                           </div>
                         )
                       })
@@ -70,8 +112,8 @@ export default function ProductDetails() {
                   {/* left and right control  */} 
                   <button className="carousel-control-prev" type='button' data-bs-target='#pro' 
                    data-bs-slide='prev'>
-                    <span className="carousel-control-prev-icon" aria-hidden="true"/>
-                    <span className="visually-hidden">Previous</span>
+                    <span className="carousel-control-prev-icon text-success" aria-hidden="true"/>
+                    <span className="visually-hidden text-success">Previous</span>
                   </button>
 
                   <button className="carousel-control-next" type='button' data-bs-target='#pro'
@@ -92,7 +134,7 @@ export default function ProductDetails() {
 
             <div className="mt-2 mb-2">
               <h5 className="text-success"> &#8377; {product.price} </h5>
-              <p className="text-warning mt-2 mb-2"> Discount :{product.discountPercentage} </p>
+              <p className="text-warning mt-2 mb-2"> Discount :{product.discountPercentage}% </p>
             </div>
 
             <h6 className="text-danger">Description</h6>
@@ -107,7 +149,7 @@ export default function ProductDetails() {
           
           <div className="mb-2 mt-2">
             <p className="text-warning"> Rating <strong className="text-success"> 
-            {product.rating} </strong> </p>
+            {product.rating} </strong> {generateStars(product.rating)}  </p>
           </div>
 
           <p className="text-info">Brand: <span className="text-dark"> {product.brand} </span></p>

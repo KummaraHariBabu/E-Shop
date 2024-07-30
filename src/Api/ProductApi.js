@@ -19,6 +19,9 @@ function useProductApi() {
     const readProducts = async () => {
         const out = await axios.get(`${url}/products`)
             setProducts(out.data.products)
+            // const discountData = out.data.products.map(p => p.discountPercentage);
+            // setDiscount(discountData);
+            // console.log("discount :"+discountData);
     }
 
     const initValue = useMemo(() => (
