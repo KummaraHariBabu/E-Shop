@@ -45,15 +45,20 @@ function Cart() {
 
   // Increment item quantity
   const increment = (id) => {
+    let outOfStock = false;
     cart.forEach(item => {
       if (item.id === id && item.quantity < item.stock) {
         item.quantity += 1;
-      } else {
-         toast.warning("Out of Stock");
-       }
+      } else if (item.id === id) {
+        outOfStock = true;
+      }
     });
+    if (outOfStock) {
+      toast.warning("Out of Stock");
+    }
     setCart([...cart]);
   };
+  
 
   // Decrement item quantity
   const decrement = (id) => {
