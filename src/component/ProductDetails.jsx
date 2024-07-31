@@ -79,7 +79,7 @@ export default function ProductDetails() {
         </div>
 
         <div className="row">
-          <div className="col-md-6 mt-2 mb-2">
+          <div className="col-md-6  mt-2 mb-2">
             <div className="card">
               <div className="card-body">
                 {/* start */}

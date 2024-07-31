@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ProductContext } from '../ProductContext';
-
+import "./cart.css"
 function Cart() {
   const context = useContext(ProductContext);
   const [cart, setCart] = context.productApi.cart;
@@ -68,6 +68,7 @@ function Cart() {
     }
   };
 
+
   return (
     <div className="container-fluid">
       {cart.length === 0 ? (
@@ -87,7 +88,7 @@ function Cart() {
           </div>
 
           <div className="row">
-            <div className="col-md-8 col-lg-9 col-sm-12">
+            <div className="col-md-8 col-lg-9 col-sm-12 mobile-scroll" >
               <table className="table table-bordered table-striped">
                 <thead className='text-center'>
                   <tr>

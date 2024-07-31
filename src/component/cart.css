@@ -1,0 +1,9 @@
+
+
+  /* custom.css */
+@media (max-width: 575.98px) {
+    .mobile-scroll {
+      overflow-x: auto;
+    }
+  }
+  
