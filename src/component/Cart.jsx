@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ProductContext } from '../ProductContext';
 import "./cart.css"
+import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 function Cart() {
   const context = useContext(ProductContext);
   const [cart, setCart] = context.productApi.cart;
@@ -44,9 +46,11 @@ function Cart() {
   // Increment item quantity
   const increment = (id) => {
     cart.forEach(item => {
-      if (item.id === id) {
+      if (item.id === id && item.quantity < item.stock) {
         item.quantity += 1;
-      }
+      } else {
+         toast.warning("Out of Stock");
+       }
     });
     setCart([...cart]);
   };
@@ -88,29 +92,31 @@ function Cart() {
           </div>
 
           <div className="row">
-            <div className="col-md-8 col-lg-9 col-sm-12 mobile-scroll" >
+            <div className="col-md-8 col-lg-9 col-sm-12  table-responsive" >
               <table className="table table-bordered table-striped">
                 <thead className='text-center'>
                   <tr>
                     <th>Title</th>
                     <th>Image</th>
                     <th>Price</th>
-                    <th>Discount %</th>
+                    <th>Discount</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
                     <th>Action</th>
                   </tr>
                 </thead>
 
-                <tbody className='text-center'>
+                <tbody className='text-center' style={{verticalAlign:"initial"}}>
                   {cart.map((item, index) => (
                     <tr key={index}>
                       <td>{item.title}</td>
                       <td>
-                        <img src={item.thumbnail} alt="no image" width={80} height={80} />
+                        <NavLink to={`/product/${item.id}/category/${item.category}`}>
+                          <img src={item.thumbnail} alt="no image" width={80} height={80} />
+                        </NavLink>
                       </td>
-                      <td>&#8377; {item.price}</td>
-                      <td>{item.discountPercentage}</td>
+                      <td>&#8377;{item.price}</td>
+                      <td>{item.discountPercentage}%</td>
                       <td>
                         <div className="d-flex justify-content-evenly">
                           <i onClick={() => decrement(item.id)} className="bi bi-dash-circle text-danger pointer"></i>
