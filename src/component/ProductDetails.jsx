@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback, useContext} from 'react'
 import axios from 'axios'
 import { useParams, NavLink } from 'react-router-dom'
 import { ProductContext } from '../ProductContext'
-
+import { toast } from 'react-toastify'
 
 const url = 'https://dummyjson.com'
 
@@ -62,6 +62,20 @@ export default function ProductDetails() {
       }
       return stars;
     }
+
+    let outstockWarning = () => {
+      toast.warning("out of stock")
+  }
+
+  let btnChecking = (product) => {
+      if (product.stock <= 0) {
+          outstockWarning(); // Show warning if out of stock
+          } else {
+          addToCart(product); // Add to cart if in stock
+          }
+  }
+
+
   const fetchProduct = useCallback(() => {
     getSingle()
   })
@@ -159,7 +173,7 @@ export default function ProductDetails() {
               Similar Products
             </NavLink>
 
-            <button onClick={() => addToCart(product)} className="btn btn-outline-success 
+            <button onClick={() => btnChecking(product)} className="btn btn-outline-success 
             float-end"> Add To Cart</button>
           </div>
         </div>

@@ -1,11 +1,24 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { ProductContext } from '../ProductContext'
+import { toast } from "react-toastify";
 
 function ProductCard(props) {
 
     const context = useContext(ProductContext)
     const addToCart = context.productApi.addToCart
+
+    let outstockWarning = () => {
+        toast.warning("out of stock")
+    }
+
+    let btnChecking = () => {
+        if (props.stock <= 0) {
+            outstockWarning(); // Show warning if out of stock
+            } else {
+            addToCart(props); // Add to cart if in stock
+            }
+    }
 
     return (
         <div className="col-lg-3 col-md-4 col-sm-6 mt-2 mb-2">
@@ -25,10 +38,12 @@ function ProductCard(props) {
                     title="product details">
                         <i className="bi bi-info-circle-fill"></i>
                     </NavLink>
-                     <button onClick={() => addToCart(props)} className="btn btn-outline-success btn-sm float-end" 
-                    title="Add to Cart">
-                        <i className="bi bi-cart"></i>
+                    <button 
+                        onClick={() => {btnChecking()}} className="btn btn-outline-success btn-sm float-end" title="Add to Cart" 
+                     >
+                    <i className="bi bi-cart"></i>
                     </button>
+
                 </div>
             </div>
         </div>
